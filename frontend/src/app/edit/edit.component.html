@@ -1,0 +1,44 @@
+<div>
+  <br>
+  <mat-card>
+    <section class="mat-typography">
+      <h3>Update Job</h3>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="updateForm" class="edit-form">
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Job Title" formControlName="title" #title>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Job Type" formControlName="type" #type>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <textarea matInput placeholder="Job Description" formControlName="description" #description></textarea>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Location" formControlName="location" #location>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="How To Apply" formControlName="how_to_apply" #how_to_apply>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Company" formControlName="company" #company>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Company URL" formControlName="company_url" #company_url>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="company_logo" formControlName="company_logo" #company_logo>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="URL" formControlName="url" #url>
+      </mat-form-field>
+    
+      <mat-divider></mat-divider>
+      <br><br>
+      <button mat-raised-button color="accent" routerLink="/list">Back</button>
+      <button type="submit" (click)="updateJob(title.value, type.value, description.value, location.value, how_to_apply.value, company.value, company_url.value, company_logo.value, url.value)" [disabled]="updateForm.pristine || updateForm.invalid" mat-raised-button color="primary">Save</button>
+    </form>
+  </mat-card>
+</div>
