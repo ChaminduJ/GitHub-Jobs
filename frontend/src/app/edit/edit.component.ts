@@ -6,7 +6,6 @@ import { MatSnackBar} from '@angular/material';
 
 import { JobService } from "../job.service";
 import { Job } from '../job.model';
-
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',

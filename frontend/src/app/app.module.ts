@@ -4,7 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ModalModule, AlertModule, CollapseModule } from "ngx-bootstrap";
+import { FilterPipeModule } from "ngx-filter-pipe";
 
 import { MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatTableModule, MatDividerModule, MatSnackBarModule} from '@angular/material';
 
@@ -25,7 +27,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ListComponent, CreateComponent, EditComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    ListComponent,
+    CreateComponent,
+    EditComponent,
+    LoginComponent
+  ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
@@ -42,7 +50,12 @@ const routes: Routes = [
     MatDividerModule,
     MatSnackBarModule,
     MatCardModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
+    CollapseModule.forRoot(),
+    FilterPipeModule
   ],
   providers: [JobService],
   bootstrap: [AppComponent]

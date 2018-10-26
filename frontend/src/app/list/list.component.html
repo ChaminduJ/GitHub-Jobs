@@ -1,35 +1,69 @@
-<div>
-  <br>
-  <mat-card>
-    <button mat-raised-button color="primary" routerLink="/create">Create New Job</button>
-    <br><br>
-    <mat-divider></mat-divider>
-    <br>
-    <table mat-table [dataSource]="jobs">
-      <ng-container matColumnDef="created_at">
-        <th mat-header-cell *matHeaderCellDef>Created Date</th>
-        <td mat-cell *matCellDef="let element">{{element.created_at | date}}</td>
-      </ng-container>
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Title</th>
-        <td mat-cell *matCellDef="let element">{{element.title}}</td>
-      </ng-container>
-      <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef>Type</th>
-        <td mat-cell *matCellDef="let element">{{element.type}}</td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef class="mat-column-right">Actions</th>
-        <td mat-cell *matCellDef="let element" class="mat-column-right">
-          <button color="primary" (click)="editJob(element._id)">Edit</button>
-          <button color="warn" (click)="deleteJob(element._id)">Delete</button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
-  </mat-card>
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h4 class="text-white">Collapsed content</h4>
+      <span class="text-muted">Toggleable via the navbar brand.</span>
+    </div>
+  </div>
+  <nav class="navbar navbar-dark bg-dark">
+    <span style="color:yellow;">GitHub Jobs</span>
+    <div class="form form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="jobFilter.title">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <app-login style="margin-left: 8px;"></app-login>
+    </div>
+  </nav>
 </div>
 
+<div>
+  <br>
+  <button class="btn btn-outline-primary my-2 my-sm-0 button" routerLink="/create">Create New Job</button>
+  <br><br>
+
+  <div class="column col-12">
+  <div class="row">
+  <div *ngFor="let job of jobs | filterBy: jobFilter" class="card col-lg-3 col-md-6 col-sm-12">
+    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+    <div class="card-body">
+      <div class="card-text">
+        <label for="created_at"><b> Created date</b></label>
+        <p>{{job.created_at | date}}</p>
+      </div>
+      <div class="card-text">
+        <label for="title"><b> Title</b></label>
+        <p>{{job.title}}</p>
+      </div>
+      <div class="card-text">
+        <label for="type"><b> Type</b></label>
+        <p>{{job.type}}</p>
+      </div>
+    </div>
+    <button class="btn btn-outline-primary my-2 my-sm-0" (click)="openModal(template)">View</button>
+    <button class="btn btn-outline-primary my-2 my-sm-0" (click)="editJob(job._id)">Edit</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" (click)="deleteJob(job._id)">Delete</button>
+  </div>
+</div>
+</div>
+
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left" for="title">{{job.title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-text">
+      <label for="created_at"><b> Created date</b></label>
+      <p>{{job.created_at | date}}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      Close
+    </button>
+  </div>
+</ng-template>

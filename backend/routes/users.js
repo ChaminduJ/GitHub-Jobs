@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 var config = require("../config");
+var VerifyToken = require('../VerifyToken');
 
 var job = require("../models/Job");
 var admin = require("../models/Admin");
@@ -17,6 +18,48 @@ router.get('/', function (req, res, next) {
     if (err) return next(err);
     res.json(job);
   });
+});
+
+//get token
+router.get('/getUser/me', function (req, res) {
+  var token = req.get('x-access-token');
+  if (!token)
+    return res.status(403).json({ auth: false, message: 'No token provided.' });
+  jwt.verify(token, config.secret, function (err, decoded) {
+    if (err)
+      return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+    // if everything good, save to request for use in other routes
+    console.log(decoded);
+    admin.findById(decoded.id, { password: 0 }, function(err, admin) {
+      if (err) return res
+          .status(500)
+          .send("There was a problem finding the admin.");
+      if (!admin) return res.status(404).send("No admin found.");
+      res.status(200).send(admin);
+    });
+  });
+  
+});
+
+//middleware function
+router.use(function (req, res, next) {
+  var token = req.get('x-access-token');
+  if (!token)
+    return res.status(403).json({ auth: false, message: 'No token provided.' });
+  jwt.verify(token, config.secret, function (err, decoded) {
+    if (err)
+      return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+    // if everything good, save to request for use in other routes
+    console.log(decoded);
+    admin.findById(decoded.id, { password: 0 }, function (err, admin) {
+      if (err) return res
+        .status(500)
+        .send("There was a problem finding the admin.");
+      if (!admin) return res.status(404).send("No admin found.");
+      next();
+    });
+  });
+  
 });
 
 /* GET SINGLE JOB BY ID */
@@ -72,32 +115,7 @@ router.post('/admin-signup', function (req, res) {
     });
 });
 
-//get token
-router.get('/me', function (req, res) {
-  var token = req.headers['x-access-token'];
-  if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
 
-  jwt.verify(token, config.secret, function (err, decoded) {
-    if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-
-    admin.findById(decoded.id,
-       { password: 0 },
-       function(err, admin) {
-      if (err) return res
-          .status(500)
-          .send("There was a problem finding the admin.");
-      if (!admin) return res.status(404).send("No admin found.");
-
-      res.status(200).send(admin);
-      // next(user);
-    });
-  });
-});
-
-//middleware function
-// router.use(function (admin, req, res, next) {
-//   res.status(200).send(admin);
-// });
 
 
 //admin signin

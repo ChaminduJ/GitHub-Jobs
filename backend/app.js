@@ -7,6 +7,7 @@ var cors =require('cors');
 var bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 
+
 //cron setup
 const cron = require("node-cron");
 const fs = require("fs");
@@ -41,20 +42,18 @@ mongoose.connect('mongodb://localhost:27017/job', { promiseLibrary: require('blu
   .then(() => console.log('connection successful'))
   .catch((err) => console.error(err));
 
-app.use( function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD, OPTIONS, PUT,POST,DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type");
-  next();
-});
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
+  next();
+});
 
 
 app.use('/', indexRouter);
