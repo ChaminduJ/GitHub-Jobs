@@ -1,44 +1,77 @@
-<div>
-  <br>
-  <mat-card>
-    <section class="mat-typography">
-      <h3>Update Job</h3>
-    </section>
-    <mat-divider></mat-divider>
-    <br>
-    <form [formGroup]="updateForm" class="edit-form">
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Job Title" formControlName="title" #title>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Job Type" formControlName="type" #type>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <textarea matInput placeholder="Job Description" formControlName="description" #description></textarea>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Location" formControlName="location" #location>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="How To Apply" formControlName="how_to_apply" #how_to_apply>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Company" formControlName="company" #company>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Company URL" formControlName="company_url" #company_url>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="company_logo" formControlName="company_logo" #company_logo>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="URL" formControlName="url" #url>
-      </mat-form-field>
-    
-      <mat-divider></mat-divider>
-      <br><br>
-      <button mat-raised-button color="accent" routerLink="/list">Back</button>
-      <button type="submit" (click)="updateJob(title.value, type.value, description.value, location.value, how_to_apply.value, company.value, company_url.value, company_logo.value, url.value)" [disabled]="updateForm.pristine || updateForm.invalid" mat-raised-button color="primary">Save</button>
-    </form>
-  </mat-card>
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark bg-dark"><span style="color:yellow;" class="main-title"><b>GitHub Jobs</b></span>
+    <div class="form form-inline my-2 my-lg-0">
+      <app-login style="margin-left: 8px;"></app-login>
+    </div>
+  </nav>
 </div>
+
+<section>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+        <div class="row">
+          <div class="col text-center">
+            <h1 class="update-title">Update Job</h1>
+          </div>
+        </div>
+        <form [formGroup]="updateForm">
+          <div class="alert-danger">
+            {{errorMsg}}
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Job Title" formControlName="title" #title>
+            </div>
+            <div class="col">
+              <input class="form-control" placeholder="Job Type" formControlName="type" #type>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <textarea class="form-control" placeholder="Job Description" formControlName="description" #description></textarea>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Location" formControlName="location" #location>
+            </div>
+            <div class="col">
+              <input class="form-control" placeholder="How To Apply" formControlName="how_to_apply" #how_to_apply>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Company" formControlName="company" #company>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Company URL" formControlName="company_url" #company_url>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <!-- <img src="{{url+job.company_logo}}" style="width:250px;height:200px"> -->
+              <img [src]="imageUrl" style="width:250px;height:200px">
+              <input type="file" class="form-control file-data" (change)="onFileSelected($event)" />
+              <div style="color: saddlebrown;font-family: 'Courier New', Courier, monospace;"> Upload Logo again </div>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="URL" formControlName="url" #url>
+            </div>
+          </div>
+          <div class="row justify-content-start mt-4">
+            <div class="col">
+              <button class="btn btn-outline-dark" routerLink="/list">Back</button>
+              <button type="submit" (click)="updateJob()"
+              [disabled]="updateForm.pristine || updateForm.invalid" class="btn btn-outline-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

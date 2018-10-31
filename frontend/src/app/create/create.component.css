@@ -1,8 +1,14 @@
-.create-form{
-    min-width: 150px;
-    width:100%;
-}
 
-.field-full-width{
-    width:100%;
+.error{
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}
+.main-title{
+    font-size: 28px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.create-title{
+    padding-top: 40px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }

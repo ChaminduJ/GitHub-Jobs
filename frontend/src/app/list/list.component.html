@@ -1,12 +1,6 @@
 <div class="pos-f-t">
-  <div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-      <h4 class="text-white">Collapsed content</h4>
-      <span class="text-muted">Toggleable via the navbar brand.</span>
-    </div>
-  </div>
-  <nav class="navbar navbar-dark bg-dark">
-    <span style="color:yellow;">GitHub Jobs</span>
+  <nav class="navbar navbar-dark">
+    <span style="color:yellow;" class="main-title"><b>GitHub Jobs</b></span>
     <div class="form form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="jobFilter.title">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -17,53 +11,101 @@
 
 <div>
   <br>
-  <button class="btn btn-outline-primary my-2 my-sm-0 button" routerLink="/create">Create New Job</button>
+  <button style="margin-left: 10px;" class="btn btn-outline-primary my-2 my-sm-0 button" *ngIf="this.adminService.isLoggedIn()"
+    routerLink="/create">Create
+    New Job</button>
   <br><br>
-
+<div class="alert-danger">
+  {{errorMsg}}
+</div>
   <div class="column col-12">
-  <div class="row">
-  <div *ngFor="let job of jobs | filterBy: jobFilter" class="card col-lg-3 col-md-6 col-sm-12">
-    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-    <div class="card-body">
-      <div class="card-text">
-        <label for="created_at"><b> Created date</b></label>
-        <p>{{job.created_at | date}}</p>
-      </div>
-      <div class="card-text">
-        <label for="title"><b> Title</b></label>
-        <p>{{job.title}}</p>
-      </div>
-      <div class="card-text">
-        <label for="type"><b> Type</b></label>
-        <p>{{job.type}}</p>
+    <div class="row">
+      <div *ngFor="let job of jobs | filterBy: jobFilter" class="card col-lg-3 col-md-6 col-sm-12">
+        <ng-template #template>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">{{job.title}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-text">
+              <label><b> Created date:</b></label>
+              <p>{{job.created_at | date}}</p>
+            </div>
+            <div class="modal-text">
+              <label><b> Type:</b></label>
+              <p>{{job.type}}</p>
+            </div>
+            <div class="modal-text">
+              <label><b> Description:</b></label>
+              <p>{{job.description}}</p>
+            </div>
+            <div class="modal-text">
+              <label><b> Location:</b></label>
+              <p>{{job.location}}</p>
+            </div>
+            <div class="modal-text">
+              <label><b> How To Apply:</b></label>
+              <p>{{job.how_to_apply}}</p>
+            </div>
+            <div class="modal-text">
+              <label><b> Company:</b></label>
+              <p>{{job.company}}</p>
+            </div>
+            <div class="modal-text">
+              <label><b> Company URL:</b></label>
+              <p>{{job.company_url}}</p>
+            </div>
+            <div class="modal-text">
+              <p>{{job.company_logo}}</p>
+              <img src="{{url+job.company_logo}}" style="width:100%;height:200px">
+            </div>
+            <div class="modal-text">
+              <label><b> URL:</b></label>
+              <p>{{job.url}}</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-dark pull-right" aria-label="Close" (click)="modalRef.hide()">
+              Close
+            </button>
+          </div>
+        </ng-template>
+        <img class="card-img-top" src="{{url+job.company_logo}}" style="width:100%;height:150px">
+
+        <div class="card-body">
+          <div class="card-text">
+            <label for="created_at"><b> Created date</b></label>
+            <p>{{job.created_at | date}}</p>
+          </div>
+          <div class="card-text">
+            <label for="title"><b> Title</b></label>
+            <p>{{job.title}}</p>
+          </div>
+          <div class="card-text">
+            <label for="type"><b> Type</b></label>
+            <p>{{job.type}}</p>
+          </div>
+        </div>
+        <div class="card-footer text-center">
+          <button class="btn btn-outline-warning my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="editJob(job._id)">Edit</button>
+          <button class="btn btn-outline-warning my-2 my-sm-0" (click)="openModal(template)">View</button>
+          <button class="btn btn-outline-danger my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="deleteJob(job._id)">Delete</button>
+        </div>
       </div>
     </div>
-    <button class="btn btn-outline-primary my-2 my-sm-0" (click)="openModal(template)">View</button>
-    <button class="btn btn-outline-primary my-2 my-sm-0" (click)="editJob(job._id)">Edit</button>
-    <button class="btn btn-outline-danger my-2 my-sm-0" (click)="deleteJob(job._id)">Delete</button>
   </div>
-</div>
-</div>
-
-
-
-
-<ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left" for="title">{{job.title}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="modal-text">
-      <label for="created_at"><b> Created date</b></label>
-      <p>{{job.created_at | date}}</p>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      Close
-    </button>
-  </div>
-</ng-template>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>

@@ -6,6 +6,7 @@ import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 
 import { Job } from '../job.model';
 import { JobService } from '../job.service';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: "app-list",
@@ -16,10 +17,11 @@ export class ListComponent implements OnInit {
   jobs: Job[];
   jobFilter: any = { title: "" };
   modalRef: BsModalRef;
-  job$: Object;
-
+  url = "http://localhost:3000/public/img/";
+  errorMsg: string;
   constructor(
     private jobService: JobService,
+    private adminService: AdminService,
     private router: Router,
     private route: ActivatedRoute,
     private modalService: BsModalService
@@ -35,9 +37,11 @@ export class ListComponent implements OnInit {
   fetchJobs() {
     this.jobService.getJobs().subscribe((data: Job[]) => {
       this.jobs = data;
-      console.log("Data requested ...");
-      console.log(this.jobs);
-    });
+
+    },
+      err => {
+        this.errorMsg = err;
+      });
   }
   editJob(id) {
     this.router.navigate([`/edit/${id}`]);
@@ -45,11 +49,9 @@ export class ListComponent implements OnInit {
   deleteJob(id) {
     this.jobService.deleteJob(id).subscribe(() => {
       this.fetchJobs();
-    });
-  }
-  getJobById(id) {
-    this.jobService.getJobById(id).subscribe(() => {
-      this.fetchJobs();
+    },
+      err => {
+        this.errorMsg = err;
     });
   }
 }

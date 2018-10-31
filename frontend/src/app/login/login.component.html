@@ -1,38 +1,41 @@
-<button type="button" class="btn btn-outline-primary my-2 my-sm-0" (click)="openModal(template)">Admin Login</button>
+<button type="button" class="btn btn-outline-primary my-2 my-sm-0" *ngIf="!this.adminService.isLoggedIn()" (click)="openModal(template)">Admin
+  Login</button>
+<button type="button" class="btn btn-outline-primary my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="logout()">Logout</button>
 
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">Login</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form [formGroup]="loginForm" class="login-form">
+      <div class="alert-danger">
+        {{errorMsg}}
+      </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" formControlName="email">
-        <!-- <alert type="danger">
+        <label for="Email">Email address</label>
+        <input type="email" class="form-control" placeholder="Email" formControlName="email" #email>
+        <div class="error">
           <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">Please enter
-            Email</span>
-        </alert> -->
+            email</span>
+        </div>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" formControlName="password">
-        <!-- <alert type="danger">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" placeholder="Password" formControlName="password" #password>
+        <div class="error">
           <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter
-            Password</span>
-        </alert> -->
+            password</span>
+        </div>
       </div>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary my-2 my-sm-0" aria-label="Close" (click)="modalRef.hide()">Close</button>
+        <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" (click)="login(email.value, password.value)"
+          [disabled]="loginForm.pristine || loginForm.invalid">Login</button>
       </div>
     </form>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" aria-label="Close" (click)="modalRef.hide()">Close</button>
-    <button type="submit" class="btn btn-primary" (click)="login()" [disabled]="loginForm.pristine || loginForm.invalid">Login</button>
-  </div>
+
 </ng-template>

@@ -1,7 +1,30 @@
-
+.main-title{
+    font-size: 28px;
+    font-family: 'Courier New', Courier, monospace;
+}
 .card{
 
-    background-color: rgba(9, 148, 106, 0.514);
+    background:none;
+    border:none;
+    padding: 10px 10px 10px 10px;
+}
+.card-body{
+    background-color: #5AB5A4;
+}
+.card-footer{
+    background-color: #1BA487;
+}
+.navbar{
+    background-color: #141924;
+}
+
+h4{
+    font-style: oblique;
+    font-size: 36px;
+    color: rgb(29, 14, 41);
+}
+.btn{
+    margin: 0 10px 0  10px;
 }
 
 

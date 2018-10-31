@@ -3,15 +3,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ModalModule, AlertModule, CollapseModule } from "ngx-bootstrap";
 import { FilterPipeModule } from "ngx-filter-pipe";
 
-import { MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatTableModule, MatDividerModule, MatSnackBarModule} from '@angular/material';
+import { MatSnackBarModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { JobService } from './job.service';
+import { AdminService } from './admin.service';
+import { AuthGuard } from './auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './list/list.component';
 import { CreateComponent } from './create/create.component';
@@ -19,11 +20,11 @@ import { EditComponent } from './edit/edit.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: 'create', component: CreateComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'edit/:id', component: EditComponent},
-  { path: 'list', component: ListComponent},
-  { path: '', redirectTo: 'list', pathMatch: 'full'}
+  { path: "create", component: CreateComponent, canActivate: [AuthGuard] },
+  { path: "login", component: LoginComponent },
+  { path: "edit/:id", component: EditComponent, canActivate: [AuthGuard] },
+  { path: "list", component: ListComponent },
+  { path: "", redirectTo: "list", pathMatch: "full" }
 ];
 
 @NgModule({
@@ -39,17 +40,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTableModule,
-    MatDividerModule,
     MatSnackBarModule,
-    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
@@ -57,7 +48,7 @@ const routes: Routes = [
     CollapseModule.forRoot(),
     FilterPipeModule
   ],
-  providers: [JobService],
+  providers: [AuthGuard,AdminService,JobService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

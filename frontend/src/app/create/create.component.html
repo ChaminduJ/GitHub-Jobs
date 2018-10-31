@@ -1,79 +1,108 @@
-<div>
-  <br>
-  <mat-card>
-    <section class="mat-typography">
-      <h3>Create A New Job</h3>
-    </section>
-    <mat-divider></mat-divider>
-    <br>
-    <form [formGroup]="createForm" class="create-form">
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Job Title" formControlName="title" #title>
-        <mat-error>
-          <span *ngIf="!createForm.get('title').valid && createForm.get('title').touched">Please enter
-            job title</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Job Type" formControlName="type" #type>
-        <mat-error>
-          <span *ngIf="!createForm.get('type').valid && createForm.get('type').touched">Please enter
-            job type</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <textarea matInput placeholder="Job Description" formControlName="description" #description></textarea>
-        <mat-error>
-          <span *ngIf="!createForm.get('description').valid && createForm.get('description').touched">Please enter
-            job description</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Location" formControlName="location" #location>
-        <mat-error>
-          <span *ngIf="!createForm.get('location').valid && createForm.get('location').touched">Please enter
-            location</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="How To Apply" formControlName="how_to_apply" #how_to_apply>
-        <mat-error>
-          <span *ngIf="!createForm.get('how_to_apply').valid && createForm.get('how_to_apply').touched">Please enter
-            How to Apply</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Company" formControlName="company" #company>
-        <mat-error>
-          <span *ngIf="!createForm.get('company').valid && createForm.get('company').touched">Please enter
-            Company</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="Company URL" formControlName="company_url" #company_url>
-        <mat-error>
-          <span *ngIf="!createForm.get('company_url').valid && createForm.get('company_url').touched">Please enter
-            Company URL</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="company_logo" formControlName="company_logo" #company_logo>
-        <mat-error>
-          <span *ngIf="!createForm.get('company_logo').valid && createForm.get('company_logo').touched">Please enter
-            Company Logo</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="field-full-width">
-        <input matInput placeholder="URL" formControlName="url" #url>
-        <mat-error>
-          <span *ngIf="!createForm.get('url').valid && createForm.get('url').touched">Please enter
-            URL</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-divider></mat-divider>
-      <br><br>
-      <button mat-raised-button color="accent" routerLink="/list">Back</button>
-      <button type="submit" (click)="addJob(title.value, type.value, description.value, location.value, how_to_apply.value, company.value, company_url.value, company_logo.value, url.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
-    </form>
-  </mat-card>
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark bg-dark"><span style="color:yellow;" class="main-title"><b>GitHub Jobs</b></span>
+    <div class="form form-inline my-2 my-lg-0">
+      <app-login style="margin-left: 8px;"></app-login>
+    </div>
+  </nav>
 </div>
+<section>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+        <div class="row">
+          <div class="col text-center">
+            <h1 class="create-title">Create A New Job</h1>
+          </div>
+        </div>
+        <form [formGroup]="createForm">
+          <div class="alert-danger">
+            {{errorMsg}}
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Job Title" formControlName="title" #title>
+              <div class="error">
+                <span *ngIf="!createForm.get('title').valid && createForm.get('title').touched">Please enter
+                  job title</span>
+              </div>
+            </div>
+            <div class="col">
+              <input class="form-control" placeholder="Job Type" formControlName="type" #type>
+              <div class="error">
+                <span *ngIf="!createForm.get('type').valid && createForm.get('type').touched">Please enter
+                  job type</span>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <textarea class="form-control" placeholder="Job Description" formControlName="description" #description></textarea>
+              <div class="error">
+                <span *ngIf="!createForm.get('description').valid && createForm.get('description').touched">Please
+                  enter
+                  job description</span>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Location" formControlName="location" #location>
+              <div class="error">
+                <span *ngIf="!createForm.get('location').valid && createForm.get('location').touched">Please enter
+                  location</span>
+              </div>
+            </div>
+            <div class="col">
+              <input class="form-control" placeholder="How To Apply" formControlName="how_to_apply" #how_to_apply>
+              <div class="error">
+                <span *ngIf="!createForm.get('how_to_apply').valid && createForm.get('how_to_apply').touched">Please
+                  enter How to Apply</span>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Company" formControlName="company" #company>
+              <div class="error">
+                <span *ngIf="!createForm.get('company').valid && createForm.get('company').touched">Please enter
+                  Company</span>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="Company URL" formControlName="company_url" #company_url>
+              <div class="error">
+                <span *ngIf="!createForm.get('company_url').valid && createForm.get('company_url').touched">Please
+                  enter
+                  Company URL</span>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <img [src]="imageUrl" style="width:250px;height:200px">
+              <input type="file" class="form-control file-data" (change)="onFileSelected($event)" />
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input class="form-control" placeholder="URL" formControlName="url" #url>
+              <div class="error">
+                <span *ngIf="!createForm.get('url').valid && createForm.get('url').touched">Please enter
+                  URL</span>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-start mt-4">
+            <div class="col">
+              <button class="btn btn-outline-dark" routerLink="/list">Back</button>
+              <button type="submit" (click)="addJob()"
+              [disabled]="createForm.pristine || createForm.invalid" class="btn btn-outline-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
