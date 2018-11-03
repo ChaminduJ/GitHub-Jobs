@@ -29,6 +29,22 @@ let shell = require("shelljs");
 //cron another way
 //*/1 * * * * su -s /bin/sh nobody -c 'cd ~dstrt/www && /usr/local/bin/git -q pull origin master'
 
+var gitPullCron = require('git-pull-cron');
+
+/*
+- Clone given repo final/git-jobs into , replacing what's already there
+- Schedule cron to run every day 11.00
+- When cron task runs, a `git pull origin master` will be performed
+- Once cron task has run the callback will get invoked with latest commit info
+ */
+gitPullCron.init("https://github.com/ChaminduJ/GitHub-Jobs.git", "./../../final/git-jobs", "00 11 * * *", function(err, commit) {
+    if (err) {
+      return console.error(err.stack);
+    }
+
+    console.log("Updated to commit: " + commit.id);
+  }
+);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

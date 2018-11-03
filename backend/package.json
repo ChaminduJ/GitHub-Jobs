@@ -13,6 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "fs": "0.0.1-security",
+    "git-pull-cron": "^1.0.0",
     "http-errors": "~1.6.2",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
