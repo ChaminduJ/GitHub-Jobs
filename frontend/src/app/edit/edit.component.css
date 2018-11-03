@@ -6,11 +6,13 @@
 .field-full-width{
     width: 100%;
 }
-.main-title{
-    font-size: 28px;
-    font-family: 'Courier New', Courier, monospace;
-}
 .update-title{
     padding-top: 40px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.container{
+    margin-bottom: 20px;
+}
+.btn{
+    margin-right: 10px;
 }

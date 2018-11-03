@@ -1,26 +1,18 @@
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <span style="color:yellow;" class="main-title"><b>GitHub Jobs</b></span>
-    <div class="form form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="jobFilter.title">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      <app-login style="margin-left: 8px;"></app-login>
-    </div>
-  </nav>
+<div class="form form-inline col-lg-3 col-md-4 col-sm-12">
+  <input class="form-control col-md-9 col-lg-9 col-sm-9" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="jobFilter.title">
+  <button class="btn btn-outline-success my-2 my-sm-0 col-md-3 col-lg-3 col-sm-3" type="submit" style="margin:0;">Search</button>
 </div>
-
 <div>
   <br>
-  <button style="margin-left: 10px;" class="btn btn-outline-primary my-2 my-sm-0 button" *ngIf="this.adminService.isLoggedIn()"
-    routerLink="/create">Create
-    New Job</button>
+  <button class="btn btn-outline-primary my-2 my-lg-0" *ngIf="this.adminService.isLoggedIn()"
+  routerLink="/create">Create New Job</button>
   <br><br>
-<div class="alert-danger">
-  {{errorMsg}}
+  <div class="alert-danger">
+    {{errorMsg}}
 </div>
   <div class="column col-12">
     <div class="row">
-      <div *ngFor="let job of jobs | filterBy: jobFilter" class="card col-lg-3 col-md-6 col-sm-12">
+      <div *ngFor="let job of jobs | filterBy: jobFilter" class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <ng-template #template>
           <div class="modal-header">
             <h4 class="modal-title pull-left">{{job.title}}</h4>

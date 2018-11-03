@@ -50,6 +50,18 @@ router.get('/:id', function (req, res, next) {
     res.json(post);
   });
 });
+/*GET JOB FOR SEARCH KEYWORD */
+/* router.get('/search/:tag', function (req, res) {
+  job.find({ 'tag': req.params.tag }).sort('-created_at').populate('job', 'name jobname').exec(function (err, post) {
+    if (err) {
+      res.render('error', {
+        status: 500
+      });
+    } else {
+      res.jsonp(post);
+    }
+  });
+}); */
 
 //admin signup
 router.post('/admin-signup', function (req, res) {
@@ -122,18 +134,7 @@ router.post('/add', function (req, res, next) {
     next();
   })
 }, function (req, res, next) {
-  job.create(
-    {
-      title: req.body.title,
-      type: req.body.type,
-      description: req.body.description,
-      location: req.body.location,
-      how_to_apply: req.body.how_to_apply,
-      company: req.body.company,
-      company_url: req.body.company_url,
-      company_logo: req.body.company_logo,
-      url: req.body.url
-    },
+  job.create(req.body,
     function(err, post) {
       if (err) return res.json({ status: 500, message: err });
       res.json(post);
@@ -152,17 +153,7 @@ router.put("/:id", function (req, res, next) {
 }, function(req, res, next) {
   job.findByIdAndUpdate(
     req.params.id,
-    {
-      title: req.body.title,
-      type: req.body.type,
-      description: req.body.description,
-      location: req.body.location,
-      how_to_apply: req.body.how_to_apply,
-      company: req.body.company,
-      company_url: req.body.company_url,
-      company_logo: req.body.company_logo,
-      url: req.body.url
-    },
+    req.body,
     function(err, post) {
       if (err) return next(err);
       res.json(post);

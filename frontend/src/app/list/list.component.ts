@@ -15,8 +15,8 @@ import { AdminService } from '../admin.service';
 })
 export class ListComponent implements OnInit {
   jobs: Job[];
-  jobFilter: any = { title: "" };
   modalRef: BsModalRef;
+  jobFilter: any = { title: "" };
   url = "http://localhost:3000/public/img/";
   errorMsg: string;
   constructor(

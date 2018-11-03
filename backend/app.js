@@ -15,16 +15,19 @@ const fs = require("fs");
 let shell = require("shelljs");
 
 // schedule tasks to be run on the server   
-// cron.schedule("* * * * *", function () {
-//   console.log("---------------------");
-//   console.log("running Cron Job");
-  // if (shell.exec("mongod database.job  .dump > data_dump.job").code !== 0) {
-  //   shell.exit(1);
-  // }
-  // else {
-  //   shell.echo("Database backup complete");
-  // }
-// });
+/* cron.schedule("* * * * *", function () {
+  console.log("---------------------");
+  console.log("running Cron Job");
+  if (shell.exec("mongod database.job  .dump > data_dump.job").code !== 0) {
+    shell.exit(1);
+  }
+  else {
+    shell.echo("Database backup complete");
+  }
+}); */
+
+//cron another way
+//*/1 * * * * su -s /bin/sh nobody -c 'cd ~dstrt/www && /usr/local/bin/git -q pull origin master'
 
 
 var indexRouter = require('./routes/index');

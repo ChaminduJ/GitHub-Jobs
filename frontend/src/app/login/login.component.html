@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-outline-primary my-2 my-sm-0" *ngIf="!this.adminService.isLoggedIn()" (click)="openModal(template)">Admin
+<button type="button" class="btn btn-outline-dark my-2 my-sm-0" *ngIf="!this.adminService.isLoggedIn()" (click)="openModal(template)">Admin
   Login</button>
-<button type="button" class="btn btn-outline-primary my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="logout()">Logout</button>
+<button type="button" class="btn btn-outline-dark my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="logout()">Logout</button>
 
 <ng-template #template>
   <div class="modal-header">
