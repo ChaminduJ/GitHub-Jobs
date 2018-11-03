@@ -7,6 +7,11 @@
 	-moz-transition: .5s all ease;
 	transition: .5s all ease;
 }
+.row, .row_1{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .card:hover{
  padding: 5px; 
 }

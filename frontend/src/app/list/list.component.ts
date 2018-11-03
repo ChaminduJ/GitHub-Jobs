@@ -28,8 +28,11 @@ export class ListComponent implements OnInit {
     private modalService: BsModalService
   ) {}
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+  openModal_view(template_view: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template_view);
+  }
+  openModal_delete(template_delete: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template_delete);
   }
 
   ngOnInit() {
@@ -52,6 +55,7 @@ export class ListComponent implements OnInit {
     this.jobService.deleteJob(id).subscribe(
       () => {
         this.fetchJobs();
+        this.modalRef.hide()
       },
       err => {
         this.errorMsg = err;

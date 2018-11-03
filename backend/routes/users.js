@@ -50,18 +50,6 @@ router.get('/:id', function (req, res, next) {
     res.json(post);
   });
 });
-/*GET JOB FOR SEARCH KEYWORD */
-/* router.get('/search/:tag', function (req, res) {
-  job.find({ 'tag': req.params.tag }).sort('-created_at').populate('job', 'name jobname').exec(function (err, post) {
-    if (err) {
-      res.render('error', {
-        status: 500
-      });
-    } else {
-      res.jsonp(post);
-    }
-  });
-}); */
 
 //admin signup
 router.post('/admin-signup', function (req, res) {

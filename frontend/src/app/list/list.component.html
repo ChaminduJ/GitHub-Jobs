@@ -5,94 +5,108 @@
 </div>
 <div>
   <br>
+  <div class="row_1">
   <button class="btn btn-outline-primary my-2 my-lg-0" *ngIf="this.adminService.isLoggedIn()" routerLink="/create">Create
     New Job</button>
+  </div>
   <br><br>
   <div class="alert-danger">
     {{errorMsg}}
   </div>
-  <div class="column col-12">
-    <div *ngIf="jobs?.length != 0; else data">
-    <div class="row">
-      <div *ngFor="let job of jobs | filter: jobFilter | orderBy: created_at : reverse | paginate: { itemsPerPage: 8, currentPage: p };"
-        class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <ng-template #template>
-          <div class="modal-header">
-            <h4 class="modal-title pull-left">{{job.title}}</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="modal-text">
-              <label><b> Created date:</b></label>
+  <ng-container>
+  <div class="row">
+    <div *ngFor="let job of jobs | filter: jobFilter | orderBy: created_at : reverse | paginate: { itemsPerPage: 8, currentPage: p };"
+    class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <ng-template #template_view>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">{{job.title}}</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-text">
+                <label><b> Created date:</b></label>
+                <p>{{job.created_at | date}}</p>
+              </div>
+              <div class="modal-text">
+                <label><b> Type:</b></label>
+                <p>{{job.type}}</p>
+              </div>
+              <div class="modal-text">
+                <label><b> Description:</b></label>
+                <p>{{job.description}}</p>
+              </div>
+              <div class="modal-text">
+                <label><b> Location:</b></label>
+                <p>{{job.location}}</p>
+              </div>
+              <div class="modal-text">
+                <label><b> How To Apply:</b></label>
+                <p>{{job.how_to_apply}}</p>
+              </div>
+              <div class="modal-text">
+                <label><b> Company:</b></label>
+                <p>{{job.company}}</p>
+              </div>
+              <div class="modal-text">
+                <label><b> Company URL:</b></label>
+                <p>{{job.company_url}}</p>
+              </div>
+              <div class="modal-text">
+                <p>{{job.company_logo}}</p>
+                <img src="{{url+job.company_logo}}" style="width:100%;height:200px">
+              </div>
+              <div class="modal-text">
+                <label><b> URL:</b></label>
+                <p>{{job.url}}</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-outline-dark pull-right" aria-label="Close" (click)="modalRef.hide()">
+                Close
+              </button>
+            </div>
+          </ng-template>
+          <img class="card-img-top" src="{{url+job.company_logo}}" style="width:100%;height:150px">
+
+          <div class="card-body">
+            <div class="card-text">
+              <label for="created_at"><b> Created date</b></label>
               <p>{{job.created_at | date}}</p>
             </div>
-            <div class="modal-text">
-              <label><b> Type:</b></label>
+            <div class="card-text">
+              <label for="title"><b> Title</b></label>
+              <p>{{job.title}}</p>
+            </div>
+            <div class="card-text">
+              <label for="type"><b> Type</b></label>
               <p>{{job.type}}</p>
             </div>
-            <div class="modal-text">
-              <label><b> Description:</b></label>
-              <p>{{job.description}}</p>
-            </div>
-            <div class="modal-text">
-              <label><b> Location:</b></label>
-              <p>{{job.location}}</p>
-            </div>
-            <div class="modal-text">
-              <label><b> How To Apply:</b></label>
-              <p>{{job.how_to_apply}}</p>
-            </div>
-            <div class="modal-text">
-              <label><b> Company:</b></label>
-              <p>{{job.company}}</p>
-            </div>
-            <div class="modal-text">
-              <label><b> Company URL:</b></label>
-              <p>{{job.company_url}}</p>
-            </div>
-            <div class="modal-text">
-              <p>{{job.company_logo}}</p>
-              <img src="{{url+job.company_logo}}" style="width:100%;height:200px">
-            </div>
-            <div class="modal-text">
-              <label><b> URL:</b></label>
-              <p>{{job.url}}</p>
-            </div>
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-outline-dark pull-right" aria-label="Close" (click)="modalRef.hide()">
-              Close
-            </button>
+          <div class="card-footer text-center">
+            <button class="btn btn-outline-warning my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="editJob(job._id)">Edit</button>
+            <button class="btn btn-outline-warning my-2 my-sm-0" (click)="openModal_view(template_view)">View</button>
+            <button class="btn btn-outline-danger my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="openModal_delete(template_delete)">Delete</button>
           </div>
-        </ng-template>
-        <img class="card-img-top" src="{{url+job.company_logo}}" style="width:100%;height:150px">
-
-        <div class="card-body">
-          <div class="card-text">
-            <label for="created_at"><b> Created date</b></label>
-            <p>{{job.created_at | date}}</p>
-          </div>
-          <div class="card-text">
-            <label for="title"><b> Title</b></label>
-            <p>{{job.title}}</p>
-          </div>
-          <div class="card-text">
-            <label for="type"><b> Type</b></label>
-            <p>{{job.type}}</p>
-          </div>
-        </div>
-        <div class="card-footer text-center">
-          <button class="btn btn-outline-warning my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="editJob(job._id)">Edit</button>
-          <button class="btn btn-outline-warning my-2 my-sm-0" (click)="openModal(template)">View</button>
-          <button class="btn btn-outline-danger my-2 my-sm-0" *ngIf="this.adminService.isLoggedIn()" (click)="deleteJob(job._id)">Delete</button>
+          <ng-template #template_delete>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">CONFIRM!!</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h6> Are you want to delete this Job?</h6>
+              <button class="btn btn-outline-danger my-2 my-sm-0 pull-right"(click)="deleteJob(job._id)">Yes</button>
+              <button type="button" class="btn btn-outline-primary my-2 my-sm-0 pull-right" aria-label="Close" (click)="modalRef.hide()">No</button>
+            </div>
+          </ng-template>
         </div>
       </div>
-    </div>
-        <ng-template #data>
-        <h1>No records found</h1>
-      </ng-template>
-  </div>
+    </ng-container>
+    <!-- <ng-container>
+      <p>No result found</p>
+    </ng-container>
+    </div> -->
   <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
-</div>
