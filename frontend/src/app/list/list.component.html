@@ -105,8 +105,6 @@
         </div>
       </div>
     </ng-container>
-    <!-- <ng-container>
-      <p>No result found</p>
-    </ng-container>
-    </div> -->
+
+  <h4 class="text-center" style="color:#585858;" *ngIf="(jobs | filter:jobFilter) == 0">No Result Found</h4>
   <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
