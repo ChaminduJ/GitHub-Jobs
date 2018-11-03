@@ -1,18 +1,21 @@
-<div class="form form-inline col-lg-3 col-md-4 col-sm-12">
-  <input class="form-control col-md-9 col-lg-9 col-sm-9" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="jobFilter">
+<div class="form form-inline col-lg-3 col-md-5 col-sm-12">
+  <input class="form-control col-md-9 col-lg-9 col-sm-9" type="text" placeholder="Search" aria-label="Search"
+    [(ngModel)]="jobFilter">
   <button class="btn btn-outline-success my-2 my-sm-0 col-md-3 col-lg-3 col-sm-3" type="submit" style="margin:0;">Search</button>
 </div>
 <div>
   <br>
-  <button class="btn btn-outline-primary my-2 my-lg-0" *ngIf="this.adminService.isLoggedIn()"
-  routerLink="/create">Create New Job</button>
+  <button class="btn btn-outline-primary my-2 my-lg-0" *ngIf="this.adminService.isLoggedIn()" routerLink="/create">Create
+    New Job</button>
   <br><br>
   <div class="alert-danger">
     {{errorMsg}}
-</div>
+  </div>
   <div class="column col-12">
+    <div *ngIf="jobs?.length != 0; else data">
     <div class="row">
-      <div *ngFor="let job of jobs | filter: jobFilter | orderBy: created_at : reverse | paginate: { itemsPerPage: 8, currentPage: p };" class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div *ngFor="let job of jobs | filter: jobFilter | orderBy: created_at : reverse | paginate: { itemsPerPage: 8, currentPage: p };"
+        class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <ng-template #template>
           <div class="modal-header">
             <h4 class="modal-title pull-left">{{job.title}}</h4>
@@ -87,5 +90,9 @@
         </div>
       </div>
     </div>
-    <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+        <ng-template #data>
+        <h1>No records found</h1>
+      </ng-template>
   </div>
+  <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+</div>
