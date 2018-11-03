@@ -1,5 +1,5 @@
 <div class="form form-inline col-lg-3 col-md-4 col-sm-12">
-  <input class="form-control col-md-9 col-lg-9 col-sm-9" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="jobFilter.title">
+  <input class="form-control col-md-9 col-lg-9 col-sm-9" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="jobFilter">
   <button class="btn btn-outline-success my-2 my-sm-0 col-md-3 col-lg-3 col-sm-3" type="submit" style="margin:0;">Search</button>
 </div>
 <div>
@@ -12,7 +12,7 @@
 </div>
   <div class="column col-12">
     <div class="row">
-      <div *ngFor="let job of jobs | filterBy: jobFilter" class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div *ngFor="let job of jobs | filter: jobFilter | orderBy: created_at : reverse | paginate: { itemsPerPage: 8, currentPage: p };" class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <ng-template #template>
           <div class="modal-header">
             <h4 class="modal-title pull-left">{{job.title}}</h4>
@@ -87,17 +87,5 @@
         </div>
       </div>
     </div>
+    <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
   </div>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>

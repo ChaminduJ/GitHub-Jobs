@@ -16,9 +16,10 @@ import { AdminService } from '../admin.service';
 export class ListComponent implements OnInit {
   jobs: Job[];
   modalRef: BsModalRef;
-  jobFilter: any = { title: "" };
   url = "http://localhost:3000/public/img/";
   errorMsg: string;
+  //initializing p to one
+  p: number = 1;
   constructor(
     private jobService: JobService,
     private adminService: AdminService,
@@ -35,23 +36,26 @@ export class ListComponent implements OnInit {
     this.fetchJobs();
   }
   fetchJobs() {
-    this.jobService.getJobs().subscribe((data: Job[]) => {
-      this.jobs = data;
-
-    },
+    this.jobService.getJobs().subscribe(
+      (data: Job[]) => {
+        this.jobs = data;
+      },
       err => {
         this.errorMsg = err;
-      });
+      }
+    );
   }
   editJob(id) {
     this.router.navigate([`/edit/${id}`]);
   }
   deleteJob(id) {
-    this.jobService.deleteJob(id).subscribe(() => {
-      this.fetchJobs();
-    },
+    this.jobService.deleteJob(id).subscribe(
+      () => {
+        this.fetchJobs();
+      },
       err => {
         this.errorMsg = err;
-    });
+      }
+    );
   }
 }

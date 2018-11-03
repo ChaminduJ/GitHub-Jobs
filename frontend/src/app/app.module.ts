@@ -5,7 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ModalModule, AlertModule, CollapseModule } from "ngx-bootstrap";
-import { FilterPipeModule } from "ngx-filter-pipe";
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from "ng2-search-filter"; 
+import { Ng2OrderModule } from "ng2-order-pipe";
 
 import { MatSnackBarModule} from '@angular/material';
 
@@ -46,9 +48,11 @@ const routes: Routes = [
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     CollapseModule.forRoot(),
-    FilterPipeModule
+    Ng2SearchPipeModule,
+    Ng2OrderModule,
+    NgxPaginationModule
   ],
-  providers: [AuthGuard,AdminService,JobService],
+  providers: [AuthGuard, AdminService, JobService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobService } from "../job.service";
 import { HttpClient } from 'selenium-webdriver/http';
-import { FileSelectDirective, FileUploader } from 'ng2-file-upload';
 import { HttpEventType } from '@angular/common/http';
 @Component({
   selector: "app-create",
